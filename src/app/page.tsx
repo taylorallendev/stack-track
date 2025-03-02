@@ -1,14 +1,15 @@
+"use client";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
-import { ArrowRight, BarChart3, Clock, LineChart } from "lucide-react";
-import { PageLayout } from "~/components/layout/page-layout";
+import { BarChart3, Clock, LineChart } from "lucide-react";
+import Hero from "~/components/dashboard/hero/hero";
 
 export default function HomePage() {
   return (
-    <PageLayout showNav={false}>
+    <div className="flex min-h-screen flex-col">
       {/* Hero Section */}
-      <section className="py-16 md:py-24 lg:py-32">
-        <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
+      <section className="md:py-18 py-12 lg:py-24">
+        {/* <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Track your poker sessions with{" "}
             <span className="text-primary">precision</span>
@@ -27,14 +28,15 @@ export default function HomePage() {
               <Link href="#features">Learn More</Link>
             </Button>
           </div>
-        </div>
+        </div> */}
+        <Hero />
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 md:py-24">
+      <section id="features" className="md:py-18 py-12">
         <div className="grid gap-8 md:grid-cols-3">
-          <div className="flex flex-col items-center gap-2 rounded-lg border bg-card p-6 text-card-foreground shadow-sm transition-all hover:shadow-md">
-            <div className="rounded-full bg-primary/10 p-3">
+          <div className="p-4.5 flex flex-col items-center gap-2 rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
+            <div className="p-2.25 rounded-full bg-primary/10">
               <BarChart3 className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-semibold">Track Performance</h3>
@@ -44,8 +46,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-2 rounded-lg border bg-card p-6 text-card-foreground shadow-sm transition-all hover:shadow-md">
-            <div className="rounded-full bg-primary/10 p-3">
+          <div className="p-4.5 flex flex-col items-center gap-2 rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
+            <div className="p-2.25 rounded-full bg-primary/10">
               <LineChart className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-semibold">Bankroll Management</h3>
@@ -55,8 +57,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-2 rounded-lg border bg-card p-6 text-card-foreground shadow-sm transition-all hover:shadow-md">
-            <div className="rounded-full bg-primary/10 p-3">
+          <div className="p-4.5 flex flex-col items-center gap-2 rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
+            <div className="p-2.25 rounded-full bg-primary/10">
               <Clock className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-semibold">Session Insights</h3>
@@ -69,7 +71,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="-mx-4 bg-muted px-4 py-16 md:-mx-6 md:px-6 md:py-24">
+      <section className="md:py-18 -mx-4 bg-muted px-4 py-12 md:-mx-6 md:px-6">
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Ready to improve your poker game?
@@ -82,6 +84,6 @@ export default function HomePage() {
           </Button>
         </div>
       </section>
-    </PageLayout>
+    </div>
   );
 }
