@@ -235,24 +235,23 @@ export async function createSession(formData: FormData) {
         console.warn(`User ${userId} bankroll went negative: ${newAmount}`);
       }
 
-      // Update bankroll and add transaction
-      await db.transaction(async (tx) => {
-        await tx
-          .update(bankroll)
-          .set({
-            currentAmount: newAmount.toString(),
-            lastUpdated: new Date(),
-          })
-          .where(eq(bankroll.id, userBankroll.id));
+      // Update bankroll
+      await db
+        .update(bankroll)
+        .set({
+          currentAmount: newAmount.toString(),
+          lastUpdated: new Date(),
+        })
+        .where(eq(bankroll.id, userBankroll.id));
 
-        await tx.insert(bankrollTransactions).values({
-          id: uuidv4(),
-          bankrollId: userBankroll.id,
-          type: "loss",
-          amount: buyIn.toString(),
-          timestamp: new Date(),
-          notes: `Buy-in for session: ${stakes}`,
-        });
+      // Add transaction
+      await db.insert(bankrollTransactions).values({
+        id: uuidv4(),
+        bankrollId: userBankroll.id,
+        type: "loss",
+        amount: buyIn.toString(),
+        timestamp: new Date(),
+        notes: `Buy-in for session: ${stakes}`,
       });
     }
 
@@ -327,24 +326,23 @@ export async function addRebuy(formData: FormData) {
       const currentAmount = parseFloat(userBankroll.currentAmount);
       const newAmount = currentAmount - amount;
 
-      // Update bankroll and add transaction
-      await db.transaction(async (tx) => {
-        await tx
-          .update(bankroll)
-          .set({
-            currentAmount: newAmount.toString(),
-            lastUpdated: new Date(),
-          })
-          .where(eq(bankroll.id, userBankroll.id));
+      // Update bankroll
+      await db
+        .update(bankroll)
+        .set({
+          currentAmount: newAmount.toString(),
+          lastUpdated: new Date(),
+        })
+        .where(eq(bankroll.id, userBankroll.id));
 
-        await tx.insert(bankrollTransactions).values({
-          id: uuidv4(),
-          bankrollId: userBankroll.id,
-          type: "loss",
-          amount: amount.toString(),
-          timestamp: new Date(),
-          notes: `Rebuy for session: ${session.stakes}`,
-        });
+      // Add transaction
+      await db.insert(bankrollTransactions).values({
+        id: uuidv4(),
+        bankrollId: userBankroll.id,
+        type: "loss",
+        amount: amount.toString(),
+        timestamp: new Date(),
+        notes: `Rebuy for session: ${session.stakes}`,
       });
     }
 
@@ -488,24 +486,23 @@ export async function endSession(formData: FormData) {
       const currentAmount = parseFloat(userBankroll.currentAmount);
       const newAmount = currentAmount + cashOut;
 
-      // Update bankroll and add transaction
-      await db.transaction(async (tx) => {
-        await tx
-          .update(bankroll)
-          .set({
-            currentAmount: newAmount.toString(),
-            lastUpdated: new Date(),
-          })
-          .where(eq(bankroll.id, userBankroll.id));
+      // Update bankroll
+      await db
+        .update(bankroll)
+        .set({
+          currentAmount: newAmount.toString(),
+          lastUpdated: new Date(),
+        })
+        .where(eq(bankroll.id, userBankroll.id));
 
-        await tx.insert(bankrollTransactions).values({
-          id: uuidv4(),
-          bankrollId: userBankroll.id,
-          type: "winnings",
-          amount: cashOut.toString(),
-          timestamp: new Date(),
-          notes: `Cash out from session: ${session.stakes} (${profit >= 0 ? "+" : ""}${profit.toFixed(2)})`,
-        });
+      // Add transaction
+      await db.insert(bankrollTransactions).values({
+        id: uuidv4(),
+        bankrollId: userBankroll.id,
+        type: "winnings",
+        amount: cashOut.toString(),
+        timestamp: new Date(),
+        notes: `Cash out from session: ${session.stakes} (${profit >= 0 ? "+" : ""}${profit.toFixed(2)})`,
       });
     }
 
