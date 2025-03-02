@@ -9,26 +9,6 @@ export default function HomePage() {
     <div className="flex min-h-screen flex-col">
       {/* Hero Section */}
       <section className="md:py-18 py-12 lg:py-24">
-        {/* <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            Track your poker sessions with{" "}
-            <span className="text-primary">precision</span>
-          </h1>
-          <p className="max-w-[42rem] text-muted-foreground sm:text-xl">
-            Analyze your performance, track your bankroll, and improve your game
-            with detailed statistics and insights.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button asChild size="lg">
-              <Link href="/dashboard">
-                Get Started <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="#features">Learn More</Link>
-            </Button>
-          </div>
-        </div> */}
         <Hero />
       </section>
 

@@ -39,7 +39,6 @@ interface TextRotateProps {
 }
 
 export interface TextRotateRef {
-  next: () => void;
   previous: () => void;
   jumpTo: (index: number) => void;
   reset: () => void;

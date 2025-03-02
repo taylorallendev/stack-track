@@ -3,27 +3,81 @@ import { TextRotate } from "~/components/ui/text-rotate";
 import Floating, { FloatingElement } from "./parallax-floating";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
+import { AceClubs, AceDiamonds, AceHearts, AceSpades } from "./cards";
 
 export default function Hero() {
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-start overflow-hidden pt-16 md:overflow-visible">
       <Floating sensitivity={-0.5} className="h-full">
-        {/* Replace with poker-related images */}
         <FloatingElement
           depth={0.5}
           className="left-[2%] top-[15%] md:left-[5%] md:top-[25%]"
         >
-          <motion.img
-            src="/images/poker-chips.jpg"
-            alt="Stack of poker chips"
-            className="h-12 w-16 -rotate-[3deg] cursor-pointer rounded-xl object-cover shadow-2xl transition-transform duration-200 hover:scale-105 sm:h-16 sm:w-24 md:h-20 md:w-28 lg:h-24 lg:w-32"
+          <motion.div
+            className="h-12 w-16 -rotate-[3deg] cursor-pointer rounded-xl shadow-2xl transition-transform duration-200 hover:scale-105 sm:h-16 sm:w-24 md:h-20 md:w-28 lg:h-24 lg:w-32"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-          />
+          >
+            <AceHearts />
+          </motion.div>
         </FloatingElement>
 
-        {/* Add more FloatingElements with poker images */}
+        <FloatingElement
+          depth={1}
+          className="left-[8%] top-[0%] md:left-[11%] md:top-[6%]"
+        >
+          <motion.div
+            className="h-21 w-30 sm:h-27 md:h-33 md:w-42 lg:w-45 -rotate-12 cursor-pointer rounded-xl shadow-2xl transition-transform duration-200 hover:scale-105 sm:w-36 lg:h-36"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <AceSpades />
+          </motion.div>
+        </FloatingElement>
+
+        <FloatingElement
+          depth={4}
+          className="left-[6%] top-[90%] md:left-[8%] md:top-[80%]"
+        >
+          <motion.div
+            className="h-40 w-40 -rotate-[4deg] cursor-pointer rounded-xl shadow-2xl transition-transform duration-200 hover:scale-105 sm:h-48 sm:w-48 md:h-60 md:w-60 lg:h-64 lg:w-64"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+          >
+            <AceDiamonds />
+          </motion.div>
+        </FloatingElement>
+
+        <FloatingElement
+          depth={2}
+          className="left-[87%] top-[0%] md:left-[83%] md:top-[2%]"
+        >
+          <motion.div
+            className="h-36 w-40 rotate-[6deg] cursor-pointer rounded-xl shadow-2xl transition-transform duration-200 hover:scale-105 sm:h-44 sm:w-48 md:h-52 md:w-60 lg:h-56 lg:w-64"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1 }}
+          >
+            <AceClubs />
+          </motion.div>
+        </FloatingElement>
+
+        <FloatingElement
+          depth={1}
+          className="left-[83%] top-[78%] md:left-[83%] md:top-[68%]"
+        >
+          <motion.div
+            className="h-35 w-35 sm:h-51 sm:w-51 md:h-58 md:w-58 rotate-[19deg] cursor-pointer rounded-xl shadow-2xl transition-transform duration-200 hover:scale-105 lg:h-64 lg:w-64"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.3 }}
+          >
+            <AceHearts />
+          </motion.div>
+        </FloatingElement>
       </Floating>
 
       <div className="pointer-events-auto z-50 mt-8 flex w-[250px] flex-col items-center sm:mt-10 sm:w-[300px] md:mt-12 md:w-[500px] lg:mt-14 lg:w-[700px]">
