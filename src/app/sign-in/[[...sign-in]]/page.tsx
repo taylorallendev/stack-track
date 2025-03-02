@@ -246,10 +246,11 @@ export default function SignInPage() {
                     </p>
                   )}
                   <div className="flex items-center justify-end">
-                    <Link href="/forgot-password">
-                      <a className="text-sm underline underline-offset-4">
-                        Forgot password?
-                      </a>
+                    <Link
+                      href="/forgot-password"
+                      className="text-sm underline underline-offset-4"
+                    >
+                      Forgot password?
                     </Link>
                   </div>
                   <Button type="submit" className="w-full" disabled={!isLoaded}>
@@ -258,8 +259,11 @@ export default function SignInPage() {
                 </div>
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
-                  <Link href="/sign-up">
-                    <a className="underline underline-offset-4">Sign up</a>
+                  <Link
+                    href="/sign-up"
+                    className="underline underline-offset-4"
+                  >
+                    Sign up
                   </Link>
                 </div>
               </div>
