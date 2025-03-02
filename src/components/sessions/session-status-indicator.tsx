@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import type { SessionState } from "~/components/sessions/session-controls";
 import { formatDuration } from "~/lib/format-duration";
+import { useSessionStore } from "~/store/use-session-store";
 
 interface SessionStatusIndicatorProps {
   sessionState: SessionState;
@@ -17,16 +18,20 @@ export function SessionStatusIndicator({
   onEndSession,
 }: SessionStatusIndicatorProps) {
   const [elapsedTime, setElapsedTime] = useState<string>("00:00:00");
+  const { activeSession } = useSessionStore();
+
+  // Use startTime from props or from the activeSession in the store
+  const sessionStartTime = startTime ?? activeSession?.startTime;
 
   useEffect(() => {
-    if (sessionState === "inactive" || !startTime) {
+    if (sessionState === "inactive" || !sessionStartTime) {
       setElapsedTime("00:00:00");
       return;
     }
 
     const updateTimer = () => {
       const now = new Date();
-      const elapsed = now.getTime() - startTime.getTime();
+      const elapsed = now.getTime() - sessionStartTime.getTime();
       setElapsedTime(formatDuration(elapsed));
     };
 
@@ -37,7 +42,7 @@ export function SessionStatusIndicator({
     const intervalId = setInterval(updateTimer, 1000);
 
     return () => clearInterval(intervalId);
-  }, [sessionState, startTime]);
+  }, [sessionState, sessionStartTime]);
 
   return (
     <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -48,10 +53,10 @@ export function SessionStatusIndicator({
           {sessionState === "ending" && "Ending Session"}
         </h2>
         {(sessionState === "active" || sessionState === "ending") &&
-          startTime && (
+          sessionStartTime && (
             <p className="text-muted-foreground">
               Started at{" "}
-              {startTime.toLocaleTimeString([], {
+              {sessionStartTime.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}

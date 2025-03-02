@@ -29,7 +29,7 @@ export const timeOfDayEnum = pgEnum("time_of_day", [
 // Users table
 export const users = pgTable("users", {
   clerkId: text("id").primaryKey(),
-  username: text("username").notNull(),
+  username: text("username"),
   email: text("email").notNull().unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -155,3 +155,13 @@ export const sessionsRelations = relations(sessions, ({ one, many }) => ({
   rebuys: many(sessionRebuys),
   notes: many(sessionNotes),
 }));
+
+export const bankrollTransactionsRelations = relations(
+  bankrollTransactions,
+  ({ one }) => ({
+    bankroll: one(bankroll, {
+      fields: [bankrollTransactions.bankrollId],
+      references: [bankroll.id],
+    }),
+  }),
+);

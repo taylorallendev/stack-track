@@ -15,6 +15,20 @@
       "when": 1740895025452,
       "tag": "0001_awesome_glorian",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1740899650363,
+      "tag": "0002_bent_killer_shrike",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1740899946712,
+      "tag": "0003_round_whizzer",
+      "breakpoints": true
     }
   ]
 }
