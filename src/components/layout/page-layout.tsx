@@ -1,11 +1,18 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { UserNav } from "~/components/dashboard/user-nav";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "~/lib/utils";
 import { ModeToggle } from "../ui/mode-toggle";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useAuth,
+} from "@clerk/nextjs";
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -21,6 +28,7 @@ export function PageLayout({
   className,
 }: PageLayoutProps) {
   const pathname = usePathname();
+  const { isSignedIn } = useAuth();
 
   const routes = [
     {
@@ -40,22 +48,19 @@ export function PageLayout({
     },
   ];
 
-  // Check if we're on the landing page
-  const isLandingPage = pathname === "/";
-
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 max-w-7xl items-center px-4 md:px-6">
           <Link
-            href={isLandingPage ? "/" : "/dashboard"}
+            href={isSignedIn ? "/dashboard" : "/"}
             className="flex items-center gap-2"
           >
             <span className="text-xl font-bold">StackTrack</span>
           </Link>
 
-          {showNav && (
+          {showNav && isSignedIn && (
             <nav className="mx-6 flex items-center space-x-4 lg:space-x-6">
               {routes.map((route) => (
                 <Link
@@ -74,24 +79,21 @@ export function PageLayout({
 
           <div className="ml-auto flex items-center space-x-4">
             <ModeToggle />
-            {isLandingPage ? (
-              <>
-                <Link
-                  href="/login"
-                  className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:block"
-                >
+            <SignedOut>
+              <SignInButton>
+                <span className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:block">
                   Log in
-                </Link>
-                <Link
-                  href="/signup"
-                  className="text-sm font-medium transition-colors hover:text-primary"
-                >
+                </span>
+              </SignInButton>
+              <SignUpButton>
+                <span className="text-sm font-medium transition-colors hover:text-primary">
                   Sign up
-                </Link>
-              </>
-            ) : (
-              <UserNav />
-            )}
+                </span>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </div>
       </header>
@@ -107,7 +109,7 @@ export function PageLayout({
       {showFooter && (
         <footer className="mt-auto border-t py-4">
           <div className="container mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6">
-            {isLandingPage ? (
+            {!isSignedIn ? (
               <>
                 <p className="text-center text-sm text-muted-foreground">
                   © {new Date().getFullYear()} StackTrack. All rights reserved.
@@ -148,4 +150,29 @@ export function PageLayout({
       )}
     </div>
   );
+}
+
+export function ProtectedPageLayout(props: PageLayoutProps) {
+  const { isSignedIn, isLoaded } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push("/sign-in");
+    }
+  }, [isSignedIn, isLoaded, router]);
+
+  // Don't render anything until auth is loaded to prevent flash of content
+  if (!isLoaded) {
+    return null;
+  }
+
+  // If not signed in, we'll redirect in the useEffect
+  // This prevents content flash before redirect
+  if (!isSignedIn) {
+    return null;
+  }
+
+  // User is authenticated, render the page layout
+  return <PageLayout {...props} />;
 }

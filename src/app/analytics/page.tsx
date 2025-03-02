@@ -1,10 +1,10 @@
 import { AnalyticsContent } from "~/components/analytics/analytics-content";
-import { PageLayout } from "~/components/layout/page-layout";
+import { ProtectedPageLayout } from "~/components/layout/page-layout";
 
 export default function AnalyticsPage() {
   return (
-    <PageLayout>
+    <ProtectedPageLayout>
       <AnalyticsContent />
-    </PageLayout>
+    </ProtectedPageLayout>
   );
 }
