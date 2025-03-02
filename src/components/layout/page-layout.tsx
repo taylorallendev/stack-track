@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserNav } from "~/components/dashboard/user-nav";
 import { cn } from "~/lib/utils";
+import { ModeToggle } from "../ui/mode-toggle";
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -72,6 +73,7 @@ export function PageLayout({
           )}
 
           <div className="ml-auto flex items-center space-x-4">
+            <ModeToggle />
             {isLandingPage ? (
               <>
                 <Link

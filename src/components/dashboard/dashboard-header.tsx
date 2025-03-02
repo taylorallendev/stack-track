@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { UserNav } from "~/components/dashboard/user-nav";
 import { MainNav } from "~/components/dashboard/main-nav";
+import { ModeToggle } from "~/components/ui/mode-toggle";
 
 export function DashboardHeader() {
   return (
@@ -13,6 +14,7 @@ export function DashboardHeader() {
         </Link>
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
+          <ModeToggle />
           <UserNav />
         </div>
       </div>
