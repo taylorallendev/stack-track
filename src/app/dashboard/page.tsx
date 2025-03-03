@@ -9,6 +9,9 @@ import { ProtectedPageLayout } from "~/components/layout/page-layout";
 import { hasBankroll } from "~/server/actions/bankroll";
 import { BankrollSetup } from "~/components/dashboard/bankroll-setup";
 import { SessionStatusWidget } from "~/components/dashboard/session-status-widget";
+import { DashboardStats } from "~/components/dashboard/dashboard-stats";
+import { BankrollChart } from "~/components/dashboard/bankroll-chart";
+import { PerformanceMetrics } from "~/components/dashboard/performance-metrics";
 
 export default function DashboardPage() {
   const [isBankrollInitialized, setIsBankrollInitialized] = useState<
@@ -44,9 +47,19 @@ export default function DashboardPage() {
               <div className="mb-6">
                 <ActionButtons needsBankrollSetup={false} />
               </div>
+              
+              <div className="mb-6">
+                <DashboardStats />
+              </div>
+              
               <div className="mb-6 grid gap-6 md:grid-cols-2">
                 <BankrollSummary />
                 <PerformanceSnapshot />
+              </div>
+              
+              <div className="mb-6 grid gap-6 md:grid-cols-2">
+                <BankrollChart />
+                <PerformanceMetrics />
               </div>
             </>
           ) : (
@@ -61,7 +74,7 @@ export default function DashboardPage() {
 
           {isBankrollInitialized && (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <div className="space-y-6">
+              <div className="lg:col-span-1 space-y-6">
                 <SessionStatusWidget />
                 {/* Additional widgets can go here */}
               </div>
