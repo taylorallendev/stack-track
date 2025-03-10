@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Hero Section */}
-      <section className="md:py-18 py-12 lg:py-24">
+      <section className="md:pb-18 relative pb-12 pt-0 lg:pb-24">
         <Hero />
       </section>
 

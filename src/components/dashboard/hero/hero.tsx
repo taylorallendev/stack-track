@@ -8,6 +8,7 @@ import { AceClubs, AceDiamonds, AceHearts, AceSpades } from "./cards";
 export default function Hero() {
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] w-full flex-col items-center justify-start overflow-hidden pt-16 md:overflow-visible">
+      <div className="absolute top-0 z-[0] h-screen w-screen bg-purple-950/10 bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))] dark:bg-purple-950/10 dark:bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
       <Floating sensitivity={-0.5} className="h-full">
         <FloatingElement
           depth={0.5}
@@ -80,7 +81,7 @@ export default function Hero() {
         </FloatingElement>
       </Floating>
 
-      <div className="pointer-events-auto z-50 mt-8 flex w-[250px] flex-col items-center sm:mt-10 sm:w-[300px] md:mt-12 md:w-[500px] lg:mt-14 lg:w-[700px]">
+      <div className="pointer-events-auto z-50 mt-24 flex w-[250px] flex-col items-center sm:w-[300px] md:mt-32 md:w-[500px] lg:mt-40 lg:w-[700px]">
         <motion.h1
           className="flex w-full flex-col items-center justify-center space-y-1 whitespace-pre text-center text-3xl leading-tight tracking-tight sm:text-5xl md:space-y-4 md:text-7xl lg:text-8xl"
           animate={{ opacity: 1, y: 0 }}
